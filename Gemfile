@@ -47,6 +47,7 @@ gem "bootsnap", require: false
 # my gems
 gem "tailwindcss-rails", "~> 2.3"
 gem 'devise', '~> 4.2'
+gem 'faker'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
