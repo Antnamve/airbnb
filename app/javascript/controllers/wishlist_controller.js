@@ -11,15 +11,67 @@ export default class extends Controller {
     }
 
     if (this.element.dataset.status === "false") {
-      this.element.classList.remove("fill-none")
-      this.element.classList.add("fill-primary")
-      this.element.dataset.status = "true"
+      const propertyId = this.element.dataset.propertyId
+      const userId = this.element.dataset.userId
+      this.addPropertyToWishlist(propertyId, userId)
     }
 
     else {
-      this.element.classList.remove("fill-primary")
-      this.element.classList.add("fill-none")
-      this.element.dataset.status = "false"
+      const wishlistId = this.element.dataset.wishlistId
+      this.removePropertyFromWishlist(wishlistId)
     }
+  }
+
+  addPropertyToWishlist(propertyId, userId) {
+    const params = {
+      property_id: propertyId,
+      user_id: userId
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }
+
+    fetch('api/wishlists', options)
+      .then(response => {
+        if (!response.ok) {
+          console.log(response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        this.element.classList.remove("fill-none")
+        this.element.classList.add("fill-primary")
+        this.element.dataset.status = "true"
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  removePropertyFromWishlist(wishlistId) {
+    fetch('/api/wishlists/' + wishlistId, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (!response.ok) {
+          console.log(response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        this.element.classList.remove("fill-primary")
+        this.element.classList.add("fill-none")
+        this.element.dataset.status = "false"
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 }
