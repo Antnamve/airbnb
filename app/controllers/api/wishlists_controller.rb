@@ -6,7 +6,10 @@ module Api
       wishlist = Wishlist.create!(wishlist_params)
       
       respond_to do |format|
-        format.json { render json: wishlist.to_json, status: :ok }
+        # format.json { render json: wishlist.to_json, status: :ok }
+        format.json do
+          render json: wishlist.to_json, status: :ok
+        end
       end
     end
 
@@ -15,7 +18,10 @@ module Api
       wishlist.destroy
 
       respond_to do |format|
-        format.json { render status: 204 }
+        # format.json { render status: 204 }
+        format.json do
+          render status: 204
+        end
       end
     end
 
