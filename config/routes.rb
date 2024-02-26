@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :wishlists, only: %i[create destroy]
   end
+
+  resources :properties, only: %i[show]
 end
