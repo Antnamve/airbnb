@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   resources :wishlists, only: %i[index]
 
   resources :profiles, only: %i[show]
+
+  resources :reservations, only: %i[show]
 end
