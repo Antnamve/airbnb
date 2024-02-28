@@ -6,5 +6,8 @@ Rails.application.routes.draw do
     resources :wishlists, only: %i[create destroy]
   end
 
-  resources :properties, only: %i[show]
+  resources :properties, only: %i[show] do
+    resources :bookings, only: %i[new]
+  end
+
 end
